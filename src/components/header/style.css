@@ -1,0 +1,10 @@
+.header {
+  min-height: 50px;
+  background-color: #fff;
+  border-bottom: #e4e4e4;
+  padding: 0px 10px 0px 10px;
+}
+.header img {
+  max-height: 35px;
+  margin-top: 5px;
+}
