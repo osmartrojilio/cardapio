@@ -13,7 +13,10 @@ Você também pode ver erros de lint no console.
 
 O projeto foi desenvolvido acompanhando aulas do Heber 99Coders.
 
-No projeto foi utilizado
+Lado Frontend cardápio...
+
+Dependencias usadas durante o dezenvolvimento
+
 axios
 react
 react-dom
