@@ -7,6 +7,10 @@
   padding: 15px;
 }
 
+.pedido a {
+  cursor: pointer;
+}
+
 .foto-item {
   max-width: 60px;
 }

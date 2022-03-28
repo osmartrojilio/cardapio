@@ -1,12 +1,42 @@
 import './style.css';
+import api from '../../services/api';
+import { useState } from 'react';
 
 function Pedido(props){
+
+    const [status, setStatus] = useState(props.status);
+    const [visible, setVisible] = useState(true);
+
+    function AlterarStatus(sts){
+        api.put(`pedidos/status/${props.id_pedido}`, {
+            status: sts
+         })
+         .then(function (Response) {
+               //console.log('OK');
+            setStatus(sts);
+
+            if (sts == "F") {
+                setVisible(false);
+            }
+         })
+           .catch(function (err) {
+            console.log(err);
+         })
+
+         } 
+    
    
-    return  <div className="d-flex justify-content-between shadow-sm pedido">
+     return !visible ? <></> : <div className="d-flex justify-content-between shadow-sm pedido">
         <div>
             <span><b>Pedido #{props.id_pedido}</b></span>
             <span className="badge rouded-pill bg-secondary ms-3">{props.dt_pedido}</span>
-            <span className="badge rouded-pill bg-success ms-3">{props.status}</span>
+
+            {status == "A" ? <span className="badge rouded-pill bg-danger ms-3">Aguardando</span> : null}
+            {status == "P" ? <span className="badge rouded-pill bg-primary ms-3">Em produção</span> : null}
+            {status == "E" ? <span className="badge rouded-pill bg-success ms-3">Saiu para entrega</span> : null}
+            {status == "F" ? <span className="badge rouded-pill bg-secondary ms-3">Finalizado</span> : null}
+            
+
             <small className="d-block mt-1 text-secondary">{props.nome}- {props.endereco}</small>
 
             {
@@ -27,10 +57,10 @@ function Pedido(props){
   </a>
 
   <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <li><a className="dropdown-item" href="#">Aguardando</a></li>
-    <li><a className="dropdown-item" href="#">Em produção</a></li>
-    <li><a className="dropdown-item" href="#">Saiu para entrega</a></li>
-    <li><a className="dropdown-item" href="#">Finalizar</a></li>
+    <li><a onClick={(e) => AlterarStatus("A")} className="dropdown-item">Aguardando</a></li>
+    <li><a onClick={(e) => AlterarStatus("P")} className="dropdown-item">Em produção</a></li>
+    <li><a onClick={(e) => AlterarStatus("E")} className="dropdown-item">Saiu para entrega</a></li>
+    <li><a onClick={(e) => AlterarStatus("F")} className="dropdown-item">Finalizar</a></li>
   </ul>
 </div>
         </div>
